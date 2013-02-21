@@ -121,11 +121,11 @@ class UserMailer < ActionMailer::Base
   default from: "noreply@example.com"
   #
   # FIX YOUR USER.RESET_PASSWORD_TOKEN URL TO LOOK LIKE 
-  # #{user.reset_password_token} and no spaces in the URL
+  # {user.reset_password_token} and no spaces in the URL
   #
   def reset_password_email(user)
     @user = user
-    @url  = "http://0.0.0.0/password_resets/# {user.reset_password_token}/edit"
+    @url  = "http://0.0.0.0/password_resets/ # { user . reset_password _ token }/edit"
     mail(:to => user.email,
          :subject => "Your password has been reset")
   end
