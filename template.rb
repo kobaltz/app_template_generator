@@ -411,8 +411,8 @@ end
 		create_file "app/views/sessions/new.html.erb",  <<-RUBY
 <%= form_tag sessions_path do %>
   <div class="field">
-    <%= label_tag :email %>
-    <%= text_field_tag :email, params[:email] %>
+    <%= label_tag :username %>
+    <%= text_field_tag :email, params[:username] %>
   </div>
   <div class="field">
     <%= label_tag :password %>
@@ -422,6 +422,7 @@ end
     <%= check_box_tag :remember_me, 1, params[:remember_me] %>
     <%= label_tag :remember_me %>
   </div>
+  <%= link_to 'Forgot Password?', new_password_reset_path %>
   <div class="actions"><%= submit_tag "Log in" %></div>
 <% end %>
 		RUBY
@@ -450,7 +451,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-  	can :new, :users
+  	can [:new,:create], :users
   end
 end
 		RUBY
