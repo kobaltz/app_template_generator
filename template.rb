@@ -65,6 +65,8 @@ production:
 
 		generate("controller","PasswordResets create edit update")
 
+    @generator.remove_file "app/controllers/password_resets_controller.rb"
+
 		create_file "app/controllers/password_resets_controller.rb",  <<-RUBY
 class PasswordResetsController < ApplicationController
   skip_before_filter :require_login
@@ -106,6 +108,7 @@ class PasswordResetsController < ApplicationController
 end
 		RUBY
 
+    @generator.remove_file "app/views/user_mailer/reset_password_email.text.erb"
 		create_file "app/views/user_mailer/reset_password_email.text.erb",  <<-RUBY
 Hello, <%= @user.email %>
 ===============================================
@@ -116,6 +119,7 @@ To choose a new password, just follow this link: <%= @url %>.
 Have a great day!
 		RUBY
 
+ @generator.remove_file "app/mailers/user_mailer.rb"
 		create_file "app/mailers/user_mailer.rb",  <<-RUBY
 class UserMailer < ActionMailer::Base
   default from: "noreply@example.com"
@@ -132,7 +136,7 @@ class UserMailer < ActionMailer::Base
 end
 		RUBY
 
-
+@generator.remove_file "app/views/password_resets/edit.html.erb"
 		create_file "app/views/password_resets/edit.html.erb",  <<-RUBY
 <h1>Choose a new password</h1>
 <%= form_for @user, :url => password_reset_path(@user), :html => {:method => :put} do |f| %>
@@ -166,7 +170,7 @@ end
   </div>
 <% end %>
 		RUBY
-
+@generator.remove_file "app/views/password_resets/new.html.erb"
 		create_file "app/views/password_resets/new.html.erb",  <<-RUBY
 <%= form_tag password_resets_path, :method => :post do %>
   <div class="field">
@@ -175,7 +179,7 @@ end
   </div>
 <% end %>
 		RUBY
-
+@generator.remove_file  "app/views/layouts/application.html.erb"
 		create_file "app/views/layouts/application.html.erb",  <<-RUBY
 <!DOCTYPE html>
 <html>
@@ -231,7 +235,7 @@ end
 </body>
 </html>
 		RUBY
-
+@generator.remove_file "app/assets/stylesheets/bootstrap_and_overrides.css.less"
 		create_file "app/assets/stylesheets/bootstrap_and_overrides.css.less",  <<-RUBY
 @import "twitter/bootstrap/bootstrap";
 body { padding-top: 60px; }
@@ -311,7 +315,7 @@ body { padding-top: 60px; }
   }
 }
 		RUBY
-
+@generator.remove_file  "config/initializers/sorcery.rb"
 		create_file "config/initializers/sorcery.rb",  <<-RUBY
 Rails.application.config.sorcery.submodules = [:remember_me, :reset_password]
 Rails.application.config.sorcery.configure do |config|
@@ -322,6 +326,7 @@ Rails.application.config.sorcery.configure do |config|
   config.user_class = "User"
 end
 		RUBY
+@generator.remove_file "app/models/user.rb"
 		create_file "app/models/user.rb",  <<-RUBY
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
@@ -336,7 +341,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
 end
 		RUBY
-
+@generator.remove_file "app/controllers/users_controller.rb"
 		create_file "app/controllers/users_controller.rb",  <<-RUBY
 class UsersController < ApplicationController
 	load_and_authorize_resource
@@ -355,7 +360,7 @@ class UsersController < ApplicationController
 	end
 end
 		RUBY
-
+@generator.remove_file "app/views/users/new.html.erb"
 		create_file "app/views/users/new.html.erb",  <<-RUBY
 <%= form_for @user do |f| %>
   <% if @user.errors.any? %>
@@ -387,7 +392,7 @@ end
   <div class="actions"><%= f.submit %></div>
 <% end %>
 		RUBY
-
+@generator.remove_file "app/controllers/sessions_controller.rb"
 		create_file "app/controllers/sessions_controller.rb",  <<-RUBY
 class SessionsController < ApplicationController
 	def create
@@ -407,7 +412,7 @@ class SessionsController < ApplicationController
 end
 
 		RUBY
-
+@generator.remove_file "app/views/sessions/new.html.erb"
 		create_file "app/views/sessions/new.html.erb",  <<-RUBY
 <%= form_tag sessions_path do %>
   <div class="field">
@@ -426,7 +431,7 @@ end
   <div class="actions"><%= submit_tag "Log in" %></div>
 <% end %>
 		RUBY
-
+@generator.remove_file "app/controllers/application_controller.rb"
 		create_file "app/controllers/application_controller.rb",  <<-RUBY
 class ApplicationController < ActionController::Base
 	protect_from_forgery
@@ -445,7 +450,7 @@ class ApplicationController < ActionController::Base
 	end	
 end
 		RUBY
-
+@generator.remove_file "app/models/ability.rb"
 		create_file "app/models/ability.rb",  <<-RUBY
 class Ability
   include CanCan::Ability
