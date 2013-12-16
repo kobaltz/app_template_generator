@@ -16,6 +16,10 @@ Usage
 This tempalte allows you to quickly pick up and start programming with Ruby on Rails
 
     rails new testerapp -d mysql -b template.rb
+    
+If you have Rails 4 or later installed and you want to create a Rails 3 application, you will need to first specify which version of rails that you will be creating.
+
+    rails _3.2.16_ new testerapp -d mysql -b template.rb
 
 You will be asked a few questions when using this Builder. These questions are used soley for the purpose of creating your development database, and setting the credentials for your production database.
 
